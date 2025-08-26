@@ -1,0 +1,57 @@
+<div class="dashboard-header">
+  <h1>Gestion des Franchisés</h1>
+  <!-- On ouvre la modale au clic -->
+  <button class="add-button" (click)="isModalOpen.set(true)">+ Ajouter un franchisé</button>
+</div>
+
+<div class="table-container">
+  <!-- On utilise le pipe 'async' pour souscrire à l'observable franchises$ -->
+  <!-- Le bloc @if s'assure qu'on affiche le tableau seulement quand les données sont là -->
+  @if (franchises$ | async; as franchises) {
+    <table>
+      <thead>
+      <tr>
+        <th>Nom</th>
+        <th>Email</th>
+        <th>Date de début</th>
+        <th>Actions</th>
+      </tr>
+      </thead>
+      <tbody>
+      <!-- On utilise le nouveau bloc @for pour boucler, avec 'track' pour la performance -->
+        @for (franchise of franchises; track franchise.id) {
+          <tr>
+            <td>{{ franchise.name }}</td>
+            <td>{{ franchise.email }}</td>
+            <td>{{ franchise.startDate?.toDate() | date: 'dd/MM/yyyy' }}</td>
+            <td>
+              <button class="action-button view">Voir</button>
+              <button class="action-button delete" (click)="openDeleteConfirmation(franchise)">Supprimer</button>
+            </td>
+          </tr>
+        } @empty {
+          <!-- Ce bloc s'affiche si la liste 'franchises' est vide -->
+          <tr>
+            <td colspan="4" class="empty-state">Aucun franchisé trouvé.</td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  } @else {
+    <p>Chargement des franchisés...</p>
+  }
+</div>
+
+@if (isModalOpen()) {
+  <app-add-franchise-modal
+    (close)="isModalOpen.set(false)">
+  </app-add-franchise-modal>
+}
+
+@if (showConfirmationModal()) {
+  <app-confirmation-modal
+    [message]="'Êtes-vous sûr de vouloir supprimer le franchisé ' + franchiseToDelete()?.name + ' ?'"
+    (confirm)="onConfirmDelete()"
+    (cancel)="closeConfirmationModal()">
+  </app-confirmation-modal>
+}

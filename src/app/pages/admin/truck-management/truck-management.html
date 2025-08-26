@@ -1,0 +1,43 @@
+<div class="dashboard-header">
+  <h1>Gestion du Parc de Camions</h1>
+  <button class="add-button" (click)="isModalOpen.set(true)">+ Ajouter un camion</button>
+</div>
+<div class="table-container">
+  @if (trucks$ | async; as trucks) {
+    <table>
+      <thead>
+      <tr>
+        <th>Plaque d'immatriculation</th>
+        <th>Modèle</th>
+        <th>Statut</th>
+        <th>Franchisé Attribué</th>
+        <th>Actions</th>
+      </tr>
+      </thead>
+      <tbody>
+        @for (truck of trucks; track truck.id) {
+          <tr>
+            <td>{{ truck.licensePlate }}</td>
+            <td>{{ truck.model }}</td>
+            <td><span class="status-badge status-{{truck.status}}">{{ truck.status }}</span></td>
+            <td>{{ truck.franchiseName }}</td>
+            <td><button class="action-button view" (click)="openManageModal(truck)">Attribuer</button></td>
+          </tr>
+        } @empty {
+          <tr><td colspan="5" class="empty-state">Aucun camion trouvé.</td></tr>
+        }
+      </tbody>
+    </table>
+  }
+</div>
+
+@if (isModalOpen()) {
+  <app-add-truck-modal (close)="isModalOpen.set(false)"></app-add-truck-modal>
+}
+
+@if (isManageModalOpen() && truckToManage()) {
+  <app-manage-truck-modal
+    [truck]="truckToManage()!"
+    (close)="isManageModalOpen.set(false)">
+  </app-manage-truck-modal>
+}

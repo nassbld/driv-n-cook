@@ -1,0 +1,118 @@
+/* Import des styles communs si vous en avez, sinon collez-les ici */
+.dashboard-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+.add-button { /* ... styles du bouton ... */ }
+
+.management-layout {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 2rem;
+}
+
+.card {
+  background: #fff;
+  padding: 1.5rem;
+  border-radius: var(--border-radius);
+  box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+}
+
+.warehouse-list ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.warehouse-list li {
+  padding: 1rem;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.warehouse-list li:hover {
+  background-color: #f5f5f5;
+}
+
+.warehouse-list li.active {
+  background-color: var(--primary-color);
+  color: white;
+  font-weight: 500;
+}
+
+.inventory-details h2 {
+  margin-top: 0;
+}
+
+.empty-state {
+  text-align: center;
+  padding: 3rem;
+  color: #777;
+  font-style: italic;
+}
+
+.table-container {
+  background-color: #fff;
+  border-radius: var(--border-radius);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+  overflow: hidden;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th, td {
+  padding: 1rem 1.2rem;
+  text-align: left;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+thead th {
+  background-color: #fafafa;
+  color: #555;
+  font-weight: 600;
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+tbody tr:hover {
+  background-color: #f5f5f5;
+}
+
+.action-button {
+  border: none;
+  padding: 0.4rem 0.8rem;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-right: 0.5rem;
+  font-weight: 500;
+  transition: opacity 0.3s;
+}
+
+.action-button:hover {
+  opacity: 0.8;
+}
+
+.action-button.view {
+  background-color: #e0e0e0;
+  color: #333;
+}
+
+.empty-state {
+  text-align: center;
+  padding: 3rem;
+  color: #777;
+  font-style: italic;
+}
+
+.details-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}

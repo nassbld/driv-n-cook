@@ -1,0 +1,21 @@
+<div class="modal-overlay" (click)="close.emit()">
+  <div class="modal-content" (click)="$event.stopPropagation()">
+    <div class="modal-header"><h2>Gérer le signalement</h2></div>
+    <div class="modal-body">
+      <p><strong>Camion:</strong> {{ log.truckLicensePlate }}</p>
+      <p><strong>Description:</strong> {{ log.description }}</p>
+      <div class="form-group">
+        <label for="status">Changer le statut :</label>
+        <select id="status" [ngModel]="selectedStatus()" (ngModelChange)="selectedStatus.set($event)">
+          <option value="signalée">Signalée</option>
+          <option value="en_cours">En cours</option>
+          <option value="résolue">Résolue</option>
+        </select>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button (click)="close.emit()">Annuler</button>
+      <button (click)="onUpdateStatus()">Mettre à jour</button>
+    </div>
+  </div>
+</div>

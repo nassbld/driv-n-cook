@@ -1,0 +1,12 @@
+<div class="modal-overlay" (click)="close.emit()">
+  <div class="modal-content" (click)="$event.stopPropagation()">
+    <div class="modal-header"><h2>Signaler une panne pour le camion {{ truck.licensePlate }}</h2></div>
+    <div class="modal-body">
+      <textarea [(ngModel)]="description" placeholder="Veuillez décrire le problème en détail..."></textarea>
+    </div>
+    <div class="modal-footer">
+      <button (click)="close.emit()">Annuler</button>
+      <button (click)="onSubmit()" [disabled]="isLoading()">Envoyer le signalement</button>
+    </div>
+  </div>
+</div>

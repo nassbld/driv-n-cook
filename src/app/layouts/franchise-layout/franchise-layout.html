@@ -1,0 +1,15 @@
+<div class="franchise-layout">
+  <header class="franchise-header">
+    <div class="logo">Home Service</div>
+    <nav>
+      <a routerLink="/franchise/dashboard" routerLinkActive="active">Mon Tableau de Bord</a>
+      <a routerLink="/franchise/order" routerLinkActive="active">Passer une commande</a>
+      <a routerLink="/franchise/truck-details" routerLinkActive="active">Mon Camion</a>
+
+    </nav>
+    <button class="logout-button" (click)="logout()">Déconnexion</button>
+  </header>
+  <main class="franchise-content">
+    <router-outlet></router-outlet>
+  </main>
+</div>

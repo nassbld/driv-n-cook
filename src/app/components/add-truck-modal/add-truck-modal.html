@@ -1,0 +1,35 @@
+<div class="modal-overlay" (click)="close.emit()">
+  <div class="modal-content" (click)="$event.stopPropagation()">
+    <div class="modal-header">
+      <h2>Nouveau Camion</h2>
+      <button class="close-button" (click)="close.emit()">×</button>
+    </div>
+    <div class="modal-body">
+      <form (ngSubmit)="onSubmit()">
+        <div class="form-group">
+          <label for="licensePlate">Plaque d'immatriculation</label>
+          <input type="text" id="licensePlate" name="licensePlate" [ngModel]="licensePlate()" (ngModelChange)="licensePlate.set($event)">
+        </div>
+        <div class="form-group">
+          <label for="model">Modèle</label>
+          <input type="text" id="model" name="model" [ngModel]="model()" (ngModelChange)="model.set($event)">
+        </div>
+
+        @if (errorMessage()) {
+          <p class="error-message">{{ errorMessage() }}</p>
+        }
+
+        <div class="modal-footer">
+          <button type="button" class="button-secondary" (click)="close.emit()">Annuler</button>
+          <button type="submit" class="button-primary" [disabled]="isLoading()">
+            @if (isLoading()) {
+              <span>Ajout...</span>
+            } @else {
+              <span>Ajouter le camion</span>
+            }
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

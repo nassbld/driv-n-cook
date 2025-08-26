@@ -1,0 +1,55 @@
+<div class="header">
+  <h1>Mon Camion</h1>
+</div>
+
+@if (assignedTrucks$ | async; as trucks) {
+  @if (trucks.length > 0) {
+    @for (truck of trucks; track truck.id) {
+      <div class="truck-card card">
+        <h2>{{ truck.model }}</h2>
+        <div class="details-grid">
+          <div>
+            <strong>Plaque d'immatriculation</strong>
+            <p>{{ truck.licensePlate }}</p>
+          </div>
+          <div>
+            <strong>Statut</strong>
+            <p><span class="status-badge status-{{truck.status}}">{{ truck.status }}</span></p>
+          </div>
+        </div>
+        <div class="actions">
+          <button class="button-primary" (click)="openReportModal(truck)">Signaler une panne</button>
+        </div>
+      </div>
+
+      <div class="maintenance-log card">
+        <h2>Carnet d'entretien</h2>
+        @if(maintenanceHistory$ | async; as logs) {
+          @if(logs.length > 0) {
+            <ul class="log-list">
+              @for(log of logs; track log.id) {
+                <li>
+                  <strong>{{ log.reportedDate.toDate() | date:'dd/MM/yy' }}</strong> - {{ log.description }}
+                  <span class="status-badge status-{{log.status}}">{{ log.status }}</span>
+                </li>
+              }
+            </ul>
+          } @else {
+            <p class="empty-state">Aucun événement de maintenance enregistré.</p>
+          }
+        }
+      </div>
+    }
+  } @else {
+    <div class="card empty-truck">
+      <h2>Aucun camion assigné</h2>
+      <p>Aucun camion ne vous est actuellement attribué. Veuillez contacter l'administration.</p>
+    </div>
+  }
+} @else {
+  <p>Chargement des informations...</p>
+}
+
+@if(isReportModalOpen() && truckForReport()) {
+  <app-report-issue-modal [truck]="truckForReport()!" (close)="isReportModalOpen.set(false)"></app-report-issue-modal>
+}

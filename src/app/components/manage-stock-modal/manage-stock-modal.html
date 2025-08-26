@@ -1,0 +1,17 @@
+<div class="modal-overlay" (click)="close.emit()">
+  <div class="modal-content" (click)="$event.stopPropagation()">
+    <div class="modal-header">
+      <h2>Modifier le stock de : {{ item.productName }}</h2>
+    </div>
+    <div class="modal-body">
+      <div class="form-group">
+        <label for="stock">Nouvelle quantité en stock</label>
+        <input type="number" id="stock" name="stock" [ngModel]="newStock()" (ngModelChange)="newStock.set($event)">
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button (click)="close.emit()">Annuler</button>
+      <button (click)="onUpdateStock()">Mettre à jour</button>
+    </div>
+  </div>
+</div>

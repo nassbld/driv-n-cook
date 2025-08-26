@@ -1,0 +1,99 @@
+.login-container {
+  background-image: url("../../core/images/foodtruck.jpg");
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  background-color: var(--background-color);
+  padding: 2rem;
+}
+
+/* Le formulaire lui-même */
+form {
+  background: var(--form-background);
+  padding: 2.5rem;
+  border-radius: var(--border-radius);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 400px;
+  box-sizing: border-box;
+}
+
+/* Le titre "Connexion" */
+h2 {
+  color: var(--text-color);
+  margin-bottom: 2rem;
+  text-align: center;
+  font-size: 2rem;
+  font-weight: 600;
+}
+
+/* Style pour les groupes label + input */
+.form-group {
+  margin-bottom: 1.5rem;
+}
+
+/* Style pour les labels */
+label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+  color: #555;
+}
+
+/* Style pour les champs de saisie (input) */
+input[type="email"],
+input[type="password"] {
+  width: 100%;
+  padding: 0.8rem 1rem;
+  border: 1px solid var(--input-border-color);
+  border-radius: var(--border-radius);
+  font-size: 1rem;
+  transition: border-color 0.3s, box-shadow 0.3s;
+  box-sizing: border-box;
+}
+
+/* Effet visuel quand l'input est en focus */
+input[type="email"]:focus,
+input[type="password"]:focus {
+  outline: none;
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.2);
+}
+
+/* Style pour le bouton de soumission */
+button[type="submit"] {
+  width: 100%;
+  padding: 0.9rem;
+  border: none;
+  border-radius: var(--border-radius);
+  background-color: var(--primary-color);
+  color: white;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.2s;
+}
+
+/* Effet au survol de la souris */
+button[type="submit"]:hover {
+  background-color: var(--primary-color-darker);
+}
+
+/* Effet au clic */
+button[type="submit"]:active {
+  transform: scale(0.98);
+}
+
+/* Style pour le message d'erreur */
+.error-message {
+  color: var(--error-color);
+  background-color: #fddede;
+  border: 1px solid #f5c6cb;
+  padding: 0.8rem;
+  border-radius: var(--border-radius);
+  margin-top: 1.5rem;
+  text-align: center;
+  font-weight: 500;
+}

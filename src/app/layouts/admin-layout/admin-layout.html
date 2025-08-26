@@ -1,0 +1,16 @@
+<div class="admin-layout">
+  <header class="admin-header">
+    <div class="logo">Home Service - Admin</div>
+    <nav>
+      <a routerLink="/admin/dashboard" routerLinkActive="active">Franchisés</a>
+      <a routerLink="/admin/trucks" routerLinkActive="active">Camions</a>
+      <a routerLink="/admin/orders" routerLinkActive="active">Commandes</a>
+      <a routerLink="/admin/warehouses" routerLinkActive="active">Entrepôts</a>
+      <a routerLink="/admin/maintenance" routerLinkActive="active">Maintenance</a>
+    </nav>
+    <button class="logout-button" (click)="logout()">Déconnexion</button>
+  </header>
+  <main class="admin-content">
+    <router-outlet></router-outlet>
+  </main>
+</div>

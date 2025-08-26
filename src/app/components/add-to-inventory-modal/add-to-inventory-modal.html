@@ -1,0 +1,25 @@
+<div class="modal-overlay" (click)="close.emit()">
+  <div class="modal-content" (click)="$event.stopPropagation()">
+    <div class="modal-header">
+      <h2>Ajouter un produit au stock de {{ warehouse.name }}</h2>
+    </div>
+    <div class="modal-body">
+      <div class="form-group">
+        <label for="product">Produit</label>
+        <select id="product" [ngModel]="selectedProductId()" (ngModelChange)="selectedProductId.set($event)">
+          @for(product of (allProducts$ | async); track product.id) {
+            <option [value]="product.id">{{ product.name }}</option>
+          }
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="initial-stock">Stock initial</label>
+        <input type="number" id="initial-stock" [ngModel]="initialStock()" (ngModelChange)="initialStock.set($event)">
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button (click)="close.emit()">Annuler</button>
+      <button (click)="onAddToInventory()">Ajouter au stock</button>
+    </div>
+  </div>
+</div>

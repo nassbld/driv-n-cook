@@ -1,0 +1,56 @@
+<h1>Passer une nouvelle commande</h1>
+
+<div class="warehouse-selector">
+  <label for="warehouse">1. Choisissez votre entrepôt de retrait :</label>
+  <!-- La méthode `selectWarehouse` est appelée au changement -->
+  <select id="warehouse" (change)="selectWarehouse($any($event.target).value)">
+    <option disabled selected value="">-- Sélectionnez un entrepôt --</option>
+    @for (warehouse of (warehouses$ | async); track warehouse.id) {
+      <option [value]="warehouse.id">{{ warehouse.name }}</option>
+    }
+  </select>
+</div>
+
+<!-- On affiche cette section seulement si un entrepôt est sélectionné -->
+@if (selectedWarehouse()) {
+  <div class="order-layout">
+    <div class="product-list">
+      <h2>2. Choisissez vos produits</h2>
+      <!-- On utilise notre observable corrigé -->
+      @if (productsInStock$ | async; as products) {
+        @for (product of products; track product.id) {
+          <div class="product-item" [class.out-of-stock]="product.stock === 0">
+            <div>
+              <span>{{ product.name }} ({{ product.price | currency:'EUR' }})</span>
+              <small>Stock : {{ product.stock }}</small>
+            </div>
+            <input type="number" min="0" [max]="product.stock"
+                   [value]="cart().get(product.id)?.quantity || 0"
+                   (change)="updateCart(product, $any($event.target).value)"
+                   [disabled]="product.stock === 0">
+          </div>
+        }
+      } @else {
+        <p>Chargement des produits...</p>
+      }
+    </div>
+    <div class="cart-summary">
+      <h2>Votre Panier</h2>
+      @if (cart().size > 0) {
+        <ul>
+          @for (item of cart().values(); track item.productId) {
+            <li>{{ item.productName }} x {{ item.quantity }}</li>
+          }
+        </ul>
+        <hr>
+        <div class="cart-total">
+          <strong>Total:</strong>
+          <strong>{{ cartTotal() | currency:'EUR' }}</strong>
+        </div>
+        <button class="place-order-button" (click)="placeOrder()">Valider la commande</button>
+      } @else {
+        <p class="empty-state">Votre panier est vide.</p>
+      }
+    </div>
+  </div>
+}

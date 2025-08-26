@@ -1,0 +1,27 @@
+<div class="modal-overlay" (click)="close.emit()">
+  <div class="modal-content" (click)="$event.stopPropagation()">
+    <div class="modal-header">
+      <h2>Attribuer le camion {{ truck.licensePlate }}</h2>
+      <button class="close-button" (click)="close.emit()">×</button>
+    </div>
+    <div class="modal-body">
+      <div class="form-group">
+        <label for="franchise">Attribuer à un franchisé :</label>
+        <select name="franchise" id="franchise"
+                [ngModel]="selectedFranchiseId()"
+                (ngModelChange)="selectedFranchiseId.set($event)">
+          <option [ngValue]="null">-- Non attribué --</option>
+          @if (franchises$ | async; as franchises) {
+            @for (franchise of franchises; track franchise.id) {
+              <option [value]="franchise.id">{{ franchise.name }}</option>
+            }
+          }
+        </select>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="button-secondary" (click)="close.emit()">Annuler</button>
+      <button type="button" class="button-primary" (click)="onAssign()">Enregistrer</button>
+    </div>
+  </div>
+</div>

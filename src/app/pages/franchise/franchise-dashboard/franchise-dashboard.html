@@ -1,0 +1,49 @@
+@if (userProfile$ | async; as profile) {
+  <div class="welcome-header">
+    <h1>Bienvenue !</h1>
+    <p>Voici un résumé de votre activité.</p>
+  </div>
+} @else {
+  <div class="welcome-header">
+    <h1>Chargement de vos informations...</h1>
+  </div>
+}
+
+<div class="dashboard-grid">
+  <div class="card">
+    <h2>Mon Camion</h2>
+    @if (assignedTrucks$ | async; as trucks) {
+      @if (trucks.length > 0) {
+        @for(truck of trucks; track truck.id) {
+          <div class="truck-info">
+            <span>{{ truck.model }} - {{ truck.licensePlate }}</span>
+            <span class="status-badge status-{{truck.status}}">{{ truck.status }}</span>
+          </div>
+        }
+      } @else {
+        <p class="empty-state">Aucun camion ne vous est actuellement attribué.</p>
+      }
+    }
+  </div>
+  <div class="card">
+    <h2>Mes Commandes Récentes</h2>
+    @if (recentOrders$ | async; as orders) {
+      @if (orders.length > 0) {
+        <ul class="order-list">
+          @for (order of orders; track order.id) {
+            <li class="order-item">
+              <span>Commande du {{ order.date?.toDate() | date:'dd/MM/yyyy' }}</span>
+              <span class="order-total">{{ order.totalPrice | currency:'EUR' }}</span>
+            </li>
+          }
+        </ul>
+      } @else {
+        <p class="empty-state">Vous n'avez pas encore passé de commande.</p>
+      }
+    }
+  </div>
+  <div class="card">
+    <h2>Mon Chiffre d'Affaires</h2>
+    <p class="empty-state">Aucune donnée de vente disponible.</p>
+  </div>
+</div>

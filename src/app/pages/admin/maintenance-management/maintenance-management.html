@@ -1,0 +1,36 @@
+<div class="dashboard-header">
+  <h1>Suivi de la Maintenance</h1>
+</div>
+
+<div class="table-container">
+  @if (logs$ | async; as logs) {
+    <table>
+      <thead>
+      <tr>
+        <th>Date</th>
+        <th>Camion</th>
+        <th>Description</th>
+        <th>Statut</th>
+        <th>Actions</th>
+      </tr>
+      </thead>
+      <tbody>
+        @for (log of logs; track log.id) {
+          <tr>
+            <td>{{ log.reportedDate?.toDate() | date:'dd/MM/yyyy HH:mm' }}</td>
+            <td>{{ log.truckLicensePlate }}</td>
+            <td>{{ log.description }}</td>
+            <td><span class="status-badge status-{{log.status}}">{{ log.status }}</span></td>
+            <td><button class="action-button view" (click)="openModal(log)">Gérer</button></td>
+          </tr>
+        } @empty {
+          <tr><td colspan="5" class="empty-state">Aucun signalement de panne.</td></tr>
+        }
+      </tbody>
+    </table>
+  }
+</div>
+
+@if(isModalOpen() && selectedLog()) {
+  <app-manage-maintenance-modal [log]="selectedLog()!" (close)="isModalOpen.set(false)"></app-manage-maintenance-modal>
+}
